@@ -1,0 +1,15 @@
+services:
+    database:
+        image: postgres:17
+        container_name: credit_database
+        environment:
+            POSTGRES_PASSWORD: PG_PASS
+            POSTGRES_USER: PG_USERNAME
+            POSTGRES_DB: credit_db
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/posgresql/data
+
+volumes:
+    postgres_data:

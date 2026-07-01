@@ -18,9 +18,9 @@ public interface LoanApplicationMapper {
     @Mapping(target = "updatedAt", ignore = true)
     LoanApplication toEntity(LoanApplicationRequestDTO requestDTO);
 
-    @Mapping(source = "status.description", target = "status")
+    @Mapping(source = "status", target = "status")
     LoanApplicationResponseDTO toResponseDto(LoanApplication loanApplication);
 
-    @Mapping(source = "status.description", target = "status")
+    @Mapping(source = "status", target = "status")
     List<LoanApplicationResponseDTO> toResponseDtoList(List<LoanApplication> loanApplicationList);
 }

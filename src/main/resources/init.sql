@@ -73,7 +73,6 @@ CREATE TABLE loan_applications (
 CREATE TABLE loans (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     application_id UUID UNIQUE NOT NULL,
-    client_id UUID NOT NULL,
     account_id UUID NOT NULL,
     amount NUMERIC(15, 2) NOT NULL,
     balance_owed NUMERIC(15, 2) NOT NULL,

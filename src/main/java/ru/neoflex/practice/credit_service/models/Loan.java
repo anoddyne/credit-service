@@ -1,15 +1,15 @@
 package ru.neoflex.practice.credit_service.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 import ru.neoflex.practice.credit_service.models.enums.LoanStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -17,6 +17,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "loans")
 @Entity
+@Builder
+@AllArgsConstructor
 public class Loan {
 
     @UuidGenerator
@@ -53,6 +55,10 @@ public class Loan {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("paymentDate ASC")
+    private List<PaymentSchedule> paymentScheduleList = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {

@@ -44,7 +44,7 @@ public class LoanApplication {
     private Integer requestedTermMonths;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status_code", nullable = false)
     private ApplicationStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)

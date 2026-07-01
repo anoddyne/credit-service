@@ -28,9 +28,6 @@ public class Loan {
     @JoinColumn(name = "application_id", nullable = false, unique = true)
     private LoanApplication application;
 
-    @Column(name = "client_id", nullable = false)
-    private UUID clientId;
-
     // id аккаунта получается извне
     @Column(name = "account_id", nullable = false)
     private UUID accountId;
@@ -51,7 +48,7 @@ public class Loan {
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status_code", nullable = false)
     private LoanStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)

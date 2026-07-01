@@ -34,4 +34,9 @@ public class LoanProductService {
         return loanProductRepository.findById(id).map(loanProductMapper::toResponseDto).orElseThrow(() -> new EntityNotFoundException("Кредитный продукт с ID " + id + " не найден"));
     }
 
+    @Transactional(readOnly = true)
+    public LoanProduct findProductById(UUID id) {
+        return loanProductRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Кредитный продукт с ID " + id + " не найден"));
+    }
+
 }

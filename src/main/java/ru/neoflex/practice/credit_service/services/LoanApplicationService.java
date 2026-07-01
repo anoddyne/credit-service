@@ -9,6 +9,7 @@ import ru.neoflex.practice.credit_service.dto.LoanApplication.LoanApplicationRes
 import ru.neoflex.practice.credit_service.mappers.LoanApplicationMapper;
 import ru.neoflex.practice.credit_service.models.LoanApplication;
 import ru.neoflex.practice.credit_service.models.LoanProduct;
+import ru.neoflex.practice.credit_service.models.enums.ApplicationStatus;
 import ru.neoflex.practice.credit_service.repositories.LoanApplicationRepository;
 
 import java.util.List;
@@ -18,18 +19,22 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class LoanApplicationService {
     private final LoanApplicationRepository loanApplicationRepository;
+    private final LoanProductService loanProductService;
     private final LoanApplicationMapper loanApplicationMapper;
 
     @Transactional
     public LoanApplicationResponseDTO createApplication(LoanApplicationRequestDTO loanApplicationRequestDTO) {
         LoanApplication loanApplication = loanApplicationMapper.toEntity(loanApplicationRequestDTO);
-        // LoanProduct loanProduct = loanApplication.getProduct();
+        LoanProduct loanProduct = loanProductService.findProductById(loanApplicationRequestDTO.productId());
+
+        loanApplication.setProduct(loanProduct);
+        loanApplication.setStatus(ApplicationStatus.NEW);
 
         /* TODO: здесь дописать бизнес логику
             Достаем LoanProduct из базы по productId и проверяем: входит ли requestedAmount в диапазон minAmount–maxAmount, и подходит ли requestedTermMonths под minTermMonths–maxTermMonths. Если нет — выкидываем кастомное исключение, а не сохраняем заявку.
         * */
 
-        return loanApplicationMapper.toResponseDto(loanApplication);
+        return loanApplicationMapper.toResponseDto(loanApplicationRepository.save(loanApplication));
     }
 
     @Transactional(readOnly = true)

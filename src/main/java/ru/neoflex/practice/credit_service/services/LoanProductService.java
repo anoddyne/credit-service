@@ -19,12 +19,12 @@ public class LoanProductService {
     private final LoanProductMapper loanProductMapper;
 
     @Transactional(readOnly = true)
-    public List<LoanProductResponseDTO> getAllProducts(Boolean isActive) {
+    public List<LoanProductResponseDTO> getAllProducts(Boolean active) {
         List<LoanProduct> products;
-        if (isActive == null) {
+        if (active == null) {
             products = loanProductRepository.findAll();
         } else {
-            products = loanProductRepository.findByIsActive(isActive);
+            products = loanProductRepository.findByActive(active);
         }
         return loanProductMapper.toResponseDtoList(products);
     }

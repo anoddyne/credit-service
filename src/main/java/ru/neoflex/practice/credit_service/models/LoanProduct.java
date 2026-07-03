@@ -49,7 +49,7 @@ public class LoanProduct {
     private int maxTermMonths;
 
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private boolean active;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -57,6 +57,6 @@ public class LoanProduct {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        this.isActive = true;
+        this.active = true;
     }
 }

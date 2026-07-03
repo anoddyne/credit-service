@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface LoanProductRepository extends JpaRepository<LoanProduct, UUID> {
-    List<LoanProduct> findByIsActive(boolean isActive);
+    List<LoanProduct> findByActive(boolean active);
 }

@@ -24,7 +24,7 @@ public class LoanController {
 
     @PostMapping("/issue")
     public ResponseEntity<LoanDetailsDTO> issueLoan(@Valid @RequestBody IssueLoanRequestDTO requestDTO) {
-        LoanDetailsDTO issuedLoan = loanService.issueLoan(requestDTO.applicationId());
+        LoanDetailsDTO issuedLoan = loanService.issueLoan(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(issuedLoan);
     }
 }

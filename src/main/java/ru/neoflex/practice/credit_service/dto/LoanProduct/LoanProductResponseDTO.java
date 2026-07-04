@@ -12,5 +12,5 @@ public record LoanProductResponseDTO (
         BigDecimal maxAmount,
         int minTermMonths,
         int maxTermMonths,
-        boolean isActive
+        boolean active
 ) {}

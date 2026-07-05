@@ -9,8 +9,8 @@ import ru.neoflex.practice.credit_service.dto.ErrorResponseDTO;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(LoanApplicationValidationException.class)
-    public ResponseEntity<ErrorResponseDTO> handleLoanApplicationValidation(LoanApplicationValidationException ex) {
+    @ExceptionHandler(LoanValidationException.class)
+    public ResponseEntity<ErrorResponseDTO> handleLoanApplicationValidation(LoanValidationException ex) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(
                 ex.getMessage(),
                 "Bad Request",

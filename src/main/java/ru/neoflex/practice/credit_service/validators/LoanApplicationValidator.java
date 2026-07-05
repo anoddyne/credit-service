@@ -3,7 +3,7 @@ package ru.neoflex.practice.credit_service.validators;
 
 import org.springframework.stereotype.Component;
 import ru.neoflex.practice.credit_service.dto.LoanApplication.LoanApplicationRequestDTO;
-import ru.neoflex.practice.credit_service.exceptions.LoanApplicationValidationException;
+import ru.neoflex.practice.credit_service.exceptions.LoanValidationException;
 import ru.neoflex.practice.credit_service.models.LoanProduct;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class LoanApplicationValidator {
         }
 
         if (!errors.isEmpty()) {
-            throw new LoanApplicationValidationException(String.join(" | ", errors));
+            throw new LoanValidationException(String.join(" | ", errors));
         }
     }
 }

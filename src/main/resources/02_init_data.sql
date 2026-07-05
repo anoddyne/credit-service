@@ -111,8 +111,8 @@ INSERT INTO loans.loans (id, application_id, account_id, amount, balance_owed, i
      300000.00, 280000.00, 14.5, CURRENT_DATE - interval '18 days', CURRENT_DATE + interval '24 months', 'ACTIVE', now() - interval '18 days');
 
 INSERT INTO loans.payment_schedule (id, loan_id, payment_date, total_payment, principal_payment, interest_payment, status, created_at, updated_at) VALUES
-                                                                                                                                                       (gen_random_uuid(), 'f1000000-0000-0000-0000-000000000001', CURRENT_DATE - interval '1 month', 14500.00, 10870.00, 3630.00, 'APPROVED', now() - interval '18 days', now() - interval '1 month'),
-                                                                                                                                                       (gen_random_uuid(), 'f1000000-0000-0000-0000-000000000001', CURRENT_DATE, 14500.00, 10998.00, 3502.00, 'NEW', now() - interval '18 days', NULL);
+                                                                                                                                                       (gen_random_uuid(), 'f1000000-0000-0000-0000-000000000001', CURRENT_DATE - interval '1 month', 14500.00, 10870.00, 3630.00, 'FUTURE', now() - interval '18 days', now() - interval '1 month'),
+                                                                                                                                                       (gen_random_uuid(), 'f1000000-0000-0000-0000-000000000001', CURRENT_DATE, 14500.00, 10998.00, 3502.00, 'PAID', now() - interval '18 days', NULL);
 
 -- transactions
 

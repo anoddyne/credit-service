@@ -2,9 +2,7 @@ package ru.neoflex.practice.credit_service.models;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 import ru.neoflex.practice.credit_service.models.enums.PaymentStatus;
 
@@ -17,6 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "payment_schedule")
 public class PaymentSchedule {
 

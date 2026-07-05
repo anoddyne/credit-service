@@ -41,7 +41,7 @@ public class LoanProduct {
     private BigDecimal maxAmount;
 
     @Column(name = "min_term_months", nullable = false)
-    @Min(value = 1, message = "Минимальный срок должен быть не менее 1 месяца")
+    @Min(value = 1, message = "Минимальный срок должен быть от 1 месяца")
     private int minTermMonths;
 
     @Column(name = "max_term_months", nullable = false)

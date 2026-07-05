@@ -5,11 +5,12 @@ services:
         environment:
             POSTGRES_PASSWORD: ${PG_PASS}
             POSTGRES_USER: ${PG_USERNAME}
-            POSTGRES_DB: credit_db
+            POSTGRES_DB: bank_db
         ports:
             - "5432:5432"
         volumes:
             - postgres_data:/var/lib/posgresql/data
+            - ./src/main/resources:/docker-entrypoint-initdb.d
 
 volumes:
     postgres_data:

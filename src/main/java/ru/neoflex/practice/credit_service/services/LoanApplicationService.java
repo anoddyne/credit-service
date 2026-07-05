@@ -11,6 +11,7 @@ import ru.neoflex.practice.credit_service.models.LoanApplication;
 import ru.neoflex.practice.credit_service.models.LoanProduct;
 import ru.neoflex.practice.credit_service.models.enums.ApplicationStatus;
 import ru.neoflex.practice.credit_service.repositories.LoanApplicationRepository;
+import ru.neoflex.practice.credit_service.validators.LoanApplicationValidator;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,18 +22,17 @@ public class LoanApplicationService {
     private final LoanApplicationRepository loanApplicationRepository;
     private final LoanProductService loanProductService;
     private final LoanApplicationMapper loanApplicationMapper;
+    private final LoanApplicationValidator loanApplicationValidator;
 
     @Transactional
     public LoanApplicationResponseDTO createApplication(LoanApplicationRequestDTO loanApplicationRequestDTO) {
-        LoanApplication loanApplication = loanApplicationMapper.toEntity(loanApplicationRequestDTO);
         LoanProduct loanProduct = loanProductService.findProductById(loanApplicationRequestDTO.productId());
 
+        loanApplicationValidator.validate(loanApplicationRequestDTO, loanProduct);
+
+        LoanApplication loanApplication = loanApplicationMapper.toEntity(loanApplicationRequestDTO);
         loanApplication.setProduct(loanProduct);
         loanApplication.setStatus(ApplicationStatus.NEW);
-
-        /* TODO: здесь дописать бизнес логику
-            Достаем LoanProduct из базы по productId и проверяем: входит ли requestedAmount в диапазон minAmount–maxAmount, и подходит ли requestedTermMonths под minTermMonths–maxTermMonths. Если нет — выкидываем кастомное исключение, а не сохраняем заявку.
-        * */
 
         return loanApplicationMapper.toResponseDto(loanApplicationRepository.save(loanApplication));
     }
@@ -40,17 +40,6 @@ public class LoanApplicationService {
     @Transactional(readOnly = true)
     public List<LoanApplicationResponseDTO> getApplicationsByClientId(UUID id) {
         return loanApplicationMapper.toResponseDtoList(loanApplicationRepository.findByClientId(id));
-    }
-
-    @Transactional
-    public void approveAndIssueLoan() {
-        /*
-        TODO: описать метод выдачи кредита
-        1. Статус заявки меняется на APPROVED (или CLOSED, так как она выполнена).
-        2. Рассчитывается график платежей (PaymentSchedule) на основе суммы, срока и процентной ставки продукта.
-        3. Создается сам кредит (Loan) со статусом ACTIVE.
-        4. Всё это одновременно сохраняется в базу. Если на этапе расчета графика произойдет ошибка, транзакция откатится, и база останется чистой.
-         */
     }
 
     @Transactional(readOnly = true)

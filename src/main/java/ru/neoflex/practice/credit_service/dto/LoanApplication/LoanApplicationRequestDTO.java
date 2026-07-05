@@ -20,7 +20,7 @@ public record LoanApplicationRequestDTO(
         BigDecimal requestedAmount,
 
         @NotNull(message = "Срок кредита обязателен")
-        @Min(value = 3, message = "Минимальный срок - 3 месяца")
+        @Min(value = 1, message = "Минимальный срок - от 1 месяца")
         @Max(value = 360, message = "Максимальный срок - 360 месяцев")
         Integer requestedTermMonths
 ) {
